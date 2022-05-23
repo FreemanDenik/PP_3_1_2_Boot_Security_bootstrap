@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Spring Security Example</title>
+</head>
+<body>
+<h1>Users</h1>
+<hr>
+<a th:href="@{/}">Home</a> |
+<a th:href="@{/admin/create}">Create user</a> |
+<a th:href="@{/logout}">Logout</a>
+<hr>
+<style>
+    table td{
+        border-bottom: 1px solid grey;
+        padding: 10px;
+    }
+</style>
+<table>
+    <tr style="font-weight: 900; text-align: center">
+        <td>id</td>
+        <td>name</td>
+        <td>email</td>
+        <td>roles</td>
+        <td>edit</td>
+        <td>delete</td>
+    </tr>
+    <th:block th:each="user : ${model}">
+        <tr>
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.getUsername}"></td>
+            <td th:text="${user.email}"></td>
+            <td>
+                <th:block th:each="role : ${user.roles}">
+                    <span style="font-size: 9px" th:text="${role.name.substring(5)}"></span>
+                </th:block>
+            </td>
+            <td><a th:href="@{/admin/edit/{id}(id=${user.getId()})}">edit</a> </td>
+            <td>
+                <form th:action="@{/admin/delete/{id}(id=${user.id})}" method="post">
+                    <input type="submit" value="delete">
+                </form>
+            </td>
+        </tr>
+    </th:block>
+</table>
+
+</body>
+</html>
