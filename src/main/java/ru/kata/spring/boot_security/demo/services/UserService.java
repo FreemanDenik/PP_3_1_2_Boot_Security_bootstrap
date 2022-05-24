@@ -12,4 +12,5 @@ public interface UserService {
     User findUserById(int id);
     User findUserByName(String name);
     void delete(int id);
+    boolean userHaveRole(String username, String roleName);
 }

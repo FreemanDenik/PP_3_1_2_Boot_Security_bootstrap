@@ -25,4 +25,5 @@ public class RoleServiceImp implements RoleService {
     public Role role(String name) {
         return repository.findRoleByName(name);
     }
+
 }

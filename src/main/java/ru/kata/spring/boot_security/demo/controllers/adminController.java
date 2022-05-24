@@ -23,47 +23,19 @@ public class adminController {
         this.userService = userService;
         this.roleService = roleService;
     }
-
-    @GetMapping("/admin")
-    public String index(ModelMap model, Principal principal){
-        List<User> users = userService.users();
-        User currentUser = userService.findUserByName(principal.getName());
-        User newUser = new User();
-        List<Role> roles = roleService.roles();
-
-        model.addAttribute("roles", roles);
-        model.addAttribute("currentUser", currentUser);
-        model.addAttribute("newUser", newUser);
-        model.addAttribute("users", users);
-        return "admin/index";
-    }
-    @GetMapping("/admin/create")
-    public String create(ModelMap model){
-        User user = new User();
-        user.setRoles(roleService.roles());
-        model.addAttribute("model", user);
-        return "admin/create";
-    }
     @PostMapping("/admin/create")
     public String create(User user){
         userService.create(user);
-        return "redirect:/admin";
-    }
-    @GetMapping("/admin/edit")
-    public String edit(int id, ModelMap model) {
-        model.addAttribute("roles", roleService.roles());
-        model.addAttribute("model", userService.findUserById(id));
-
-        return "admin/edit";
+        return "redirect:/";
     }
     @PostMapping("/admin/edit")
     public String edit(int id, User user) {
         userService.edit(id, user);
-        return "redirect:/admin";
+        return "redirect:/";
     }
     @PostMapping("/admin/delete")
     public String delete(int id) {
         userService.delete(id);
-        return "redirect:/admin";
+        return "redirect:/";
     }
 }

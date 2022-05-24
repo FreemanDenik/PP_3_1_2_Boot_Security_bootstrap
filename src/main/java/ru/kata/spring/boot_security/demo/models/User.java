@@ -5,6 +5,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Data
 @Entity
@@ -34,8 +35,9 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
+
     @Transient
     public String getRolesToString(){
-        return String.join(", ", roles.stream().map(t->t.getName().substring(5)).toArray(String[]::new));
+        return String.join(", ", getRoles().stream().map(t->t.getNameWithoutROLE()).toArray(String[]::new));
     }
 }

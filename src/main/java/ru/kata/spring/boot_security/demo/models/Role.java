@@ -20,4 +20,9 @@ public class Role {
     private int id;
     @Column
     private String name;
+
+    @Transient
+    public String getNameWithoutROLE() {
+        return name.substring(5);
+    }
 }
