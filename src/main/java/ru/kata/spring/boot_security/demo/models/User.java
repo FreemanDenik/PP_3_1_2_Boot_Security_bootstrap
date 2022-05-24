@@ -34,4 +34,8 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
+    @Transient
+    public String getRolesToString(){
+        return String.join(", ", roles.stream().map(t->t.getName().substring(5)).toArray(String[]::new));
+    }
 }
